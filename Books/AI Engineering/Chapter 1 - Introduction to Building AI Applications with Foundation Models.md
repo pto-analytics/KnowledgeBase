@@ -1,318 +1,274 @@
-# Chapter 1 --- Introduction to Building AI Applications with Foundation Models
+# Building AI Applications with Foundation Models
 
-> **Source:** Based on my handwritten notes from Chapter 1. Any
-> additional explanations are marked as **💡 Added Context**.
-
-## Summary
-
-The rapid scaling of AI models has fundamentally changed software
-development. Instead of building machine learning models from scratch,
-developers can leverage large pre-trained **foundation models** through
-APIs and customize them for specific tasks using techniques such as
-prompt engineering, Retrieval-Augmented Generation (RAG), and
-fine-tuning.
-
-This shift has lowered barriers to entry, created the discipline of **AI
-Engineering**, and enabled entirely new categories of applications.
+*Source: AI Engineering - Chapter 1*
 
 ------------------------------------------------------------------------
+
+# Executive Summary
+
+1.  **Foundation models fundamentally changed AI development.** Instead
+    of training models from scratch, most applications are now built by
+    adapting powerful pre-trained models.
+2.  **AI Engineering is primarily about building systems around models,
+    not building the models themselves.** Success comes from integrating
+    prompting, retrieval, external tools, evaluation, and application
+    logic.
+3.  **Language models predict the next token probabilistically.**
+    Everything---from conversations to code generation---is an emergent
+    behavior of next-token prediction at scale.
+4.  **Scaling laws matter.** Larger models generally learn richer
+    representations and solve more tasks, but they require significantly
+    more compute, data, and inference cost.
+5.  **Foundation models are generalists.** They perform well across many
+    tasks, but task-specific optimization (prompt engineering, RAG,
+    fine-tuning) often produces substantially better results.
+6.  **Model-as-a-Service democratized AI.** API access removed the need
+    for organizations to train and host large models, dramatically
+    lowering barriers to building AI products.
+7.  **Competitive advantage is shifting toward proprietary data, product
+    design, distribution, and execution.**
+8.  **AI applications should begin with business value, not
+    technology.**
+9.  **Many useful AI systems require external tools; these become AI
+    agents when they can reason and act.**
+10. **Build AI systems that evolve as foundation models improve.**
+
+# Why This Matters
+
+Foundation models shifted software development from building
+intelligence to integrating intelligence. Modern AI engineering focuses
+on system design, orchestration, retrieval, evaluation, and product
+integration rather than training large models.
+
+# Mental Model
+
+``` text
+Large Training Dataset
+          │
+          ▼
+ Foundation Model
+          │
+ ┌────────┼────────┐
+ │        │        │
+Prompt   RAG   Fine-Tuning
+          │
+          ▼
+ Application Logic
+          │
+          ▼
+ Users / APIs / Tools
+```
 
 # Key Concepts
 
-## Scaling AI Models
+## Scaling Foundation Models
 
--   Larger models solve more complex tasks.
--   More applications become possible.
--   Training requires enormous computation.
--   Models are increasingly delivered as **Model-as-a-Service (MaaS)**.
--   Lower barriers to entry have accelerated the rise of AI Engineering.
-
-## Foundation Models
-
-Foundation models are large pre-trained, general-purpose models that can
-be adapted to many downstream tasks.
-
-Examples:
-
--   GPT
--   Claude
--   Gemini
--   Llama
+-   Larger models generally learn richer representations.
+-   Larger models require more compute and inference cost.
+-   Bigger is not always better; choose the smallest model that meets
+    requirements.
 
 ## Language Models
 
-Language models learn statistical relationships between words and
-predict the most likely next token.
+-   Predict the next token based on previous context.
+-   Tokens are the basic processing unit.
+-   Tokenization converts text into tokens.
+-   Vocabulary is the complete set of tokens a model understands.
 
-### Definitions
+## Self-Supervised Learning
 
-  -----------------------------------------------------------------------
-  Term                    Definition
-  ----------------------- -----------------------------------------------
-  Token                   The basic unit processed by an LLM (word,
-                          subword, punctuation, etc.).
+-   Learns from unlabeled data by generating labels from the data
+    itself.
+-   Eliminates much of the manual labeling bottleneck.
+-   Enables training on internet-scale datasets.
 
-  Tokenization            Breaking text into tokens before processing.
+> **AI Clarification:** Self-supervised learning creates prediction
+> targets directly from the input data (e.g., predicting missing or next
+> tokens).
 
-  Vocabulary              The complete set of tokens recognized by the
-                          model.
-  -----------------------------------------------------------------------
+## Foundation Models
 
-------------------------------------------------------------------------
+-   Large pre-trained, general-purpose models.
+-   Adapted rather than retrained for most applications.
+-   Includes Large Language Models (LLMs) and Large Multimodal Models
+    (LMMs).
 
-# Types of Language Models
+## Multimodal Models
 
-## Masked Language Models
-
--   Predict missing tokens.
--   Used primarily for understanding tasks.
--   Example: **BERT**
-
-## Autoregressive Models
-
--   Predict one token at a time.
--   Used for text generation.
--   Examples include GPT, Claude, and Gemini.
-
-------------------------------------------------------------------------
-
-# Self-Supervised Learning
-
-Traditional supervised learning relies on labeled data, which is
-expensive and time-consuming.
-
-Self-supervised learning instead creates labels from the data itself,
-allowing models to learn from enormous unlabeled datasets.
-
-> 💡 **Added Context:** AlexNet's 2012 ImageNet victory helped launch
-> the modern deep learning revolution, while self-supervised learning
-> later enabled today's large language models.
-
-------------------------------------------------------------------------
-
-# Model Size
-
-Model size is typically measured by **parameters**.
-
-  Model                     Parameters
-  ----------------------- ------------
-  GPT-1                           117M
-  GPT-2                           1.5B
-  GPT-5 *(course note)*            2T+
-
-Larger models generally:
-
--   Learn richer patterns
--   Require more compute
--   Require more training data
-
-Smaller models may still be preferable when they provide similar
-performance at lower cost.
-
-------------------------------------------------------------------------
-
-# Multimodal Models
-
-Large Multimodal Models (LMMs) process multiple modalities
-simultaneously:
+Process and reason across multiple data types:
 
 -   Text
 -   Images
 -   Audio
 -   Video
 
-------------------------------------------------------------------------
+## Adapting Foundation Models
 
-# Adapting Foundation Models
+### Prompt Engineering
 
-## Prompt Engineering
+Improve instructions without retraining.
 
-Provide better instructions.
+### Retrieval-Augmented Generation (RAG)
 
-## Retrieval-Augmented Generation (RAG)
+Inject external knowledge during inference.
 
-Connect the model to external knowledge sources such as databases or
-documentation.
+### Fine-Tuning
 
-## Fine-Tuning
+Continue training to modify model behavior for a specific domain or
+task.
 
-Continue training a foundation model on a specialized dataset.
-
-------------------------------------------------------------------------
-
-# AI Engineering vs ML Engineering
+# AI Engineering vs Machine Learning Engineering
 
 **Machine Learning Engineering**
 
--   Builds and trains models.
+-   Collect data
+-   Train models
+-   Optimize algorithms
 
 **AI Engineering**
 
--   Uses existing models to build valuable applications.
+-   Build applications using existing foundation models
+-   Integrate APIs
+-   Design prompts and retrieval
+-   Evaluate systems
+-   Deliver business value
 
-------------------------------------------------------------------------
-
-# Why AI Engineering is Growing
-
--   New applications are possible.
--   Existing applications improve dramatically.
--   APIs eliminate hosting complexity.
--   Faster development.
--   Lower costs.
--   Higher ROI.
-
-------------------------------------------------------------------------
-
-# Why Few Companies Train Foundation Models
-
-Training frontier models requires enormous resources.
-
-Examples include:
-
--   OpenAI
--   Google
--   Microsoft
--   Meta
--   Anthropic
--   Mistral
--   Tencent
--   Baidu
-
-------------------------------------------------------------------------
-
-# Common AI Use Cases
-
--   Software development
--   Image and video generation
--   Writing assistance
--   Education
--   Conversational bots
--   Information aggregation
--   Data extraction and organization
--   Workflow automation
-
-------------------------------------------------------------------------
+> **Key Insight:** AI Engineering is about applying intelligence, not
+> creating it.
 
 # AI Agents
 
-AI systems that can reason, use tools, call APIs, and perform actions
-autonomously.
+AI agents:
 
-> 💡 **Added Context:** Agents combine an LLM with external tools to
-> complete multi-step workflows.
-
-------------------------------------------------------------------------
+1.  Reason
+2.  Decide
+3.  Use external tools
+4.  Observe results
+5.  Continue until the objective is achieved
 
 # Planning AI Applications
 
 Consider:
 
 -   Business value
--   AI's role
--   Reactive vs proactive behavior
--   Dynamic vs static experiences
--   Human involvement
-
-Human involvement often progresses from:
-
-1.  Human in the loop
-2.  Human on the loop
-3.  Human out of the loop
-
-------------------------------------------------------------------------
-
-# Competitive Advantages
-
-1.  Technology
-2.  Distribution
-3.  Proprietary Data
-
-------------------------------------------------------------------------
-
-# Product Evaluation
-
-Measure:
-
--   Quality
+-   AI's role (core vs enhancement)
+-   Human oversight
 -   Latency
 -   Cost
--   Interpretability
+-   Quality
 -   Fairness
-
-Choose the smallest model that meets business requirements.
-
-------------------------------------------------------------------------
-
-# Long-Term Maintenance
-
-Foundation models improve rapidly.
-
-Plan for:
-
--   Better reasoning
--   Larger context windows
--   Lower inference costs
--   Product evolution over time
-
-------------------------------------------------------------------------
-
-# Examples
-
-### Prompt Engineering
-
-``` text
-Summarize this report in three executive bullet points.
-```
-
-### RAG
-
-``` text
-Answer using our internal documentation.
-```
-
-### AI Agent
-
-``` text
-Read emails
-→ Find unpaid invoices
-→ Generate reminders
-→ Send emails
-```
-
-------------------------------------------------------------------------
+-   Maintainability
 
 # Work Applications
 
--   AI copilot for planning tools
--   RAG over internal documentation
--   AI-powered SQL assistant
--   BOM and PDF extraction
--   Daily operational summaries
--   Supply chain AI agents
+## Software Engineering
 
-------------------------------------------------------------------------
+-   Code generation
+-   Documentation
+-   Testing
+-   Code review
 
-# Related Topics
+## AI Engineering
+
+-   Enterprise RAG systems
+-   Internal copilots
+-   AI agents
+-   Prompt/RAG/Fine-tuning decisions
+
+## Analytics
+
+-   Natural-language BI
+-   Automated reporting
+-   Insight generation
+
+## Supply Chain
+
+-   Planner copilots
+-   BOM/document understanding
+-   ERP workflow automation
+-   Risk summarization
+
+## Teaching
+
+-   Personalized learning
+-   Lesson generation
+-   Question creation
+-   Content summarization
+
+## Productivity
+
+-   Meeting summaries
+-   Email drafting
+-   Research synthesis
+-   Workflow automation
+
+# Personal Insights
+
+-   Model-as-a-Service dramatically lowered barriers to entry.
+-   AI Engineering is distinct from Machine Learning Engineering.
+-   Model selection is an engineering tradeoff, not simply choosing the
+    biggest model.
+-   Business value matters more than technical novelty.
+-   AI products should expect rapid model improvement.
+
+# Enduring Principles
+
+-   Build around foundation models.
+-   Start with prompting.
+-   Add RAG before fine-tuning when knowledge is the problem.
+-   Optimize for business value.
+-   The surrounding system often matters more than the model.
+
+# Common Misconceptions
+
+-   Bigger models are always better.
+-   Fine-tuning is always required.
+-   AI Engineering equals Machine Learning Engineering.
+-   Foundation models replace software engineering.
+-   A good demo guarantees a good product.
+
+# Connections
 
 -   Transformers
 -   Attention
+-   Tokenization
 -   Embeddings
 -   Prompt Engineering
 -   RAG
 -   Fine-Tuning
--   AI Agents
 -   Context Windows
+-   AI Agents
+-   Tool Calling
+-   Inference
+-   Vector Databases
 -   Model Evaluation
-
-------------------------------------------------------------------------
 
 # Questions for Review
 
-1.  What is a foundation model?
-2.  Why are autoregressive models used for generation?
-3.  How does self-supervised learning differ from supervised learning?
-4.  Why isn't the largest model always the best?
-5.  When should you use RAG instead of fine-tuning?
-6.  How does AI Engineering differ from ML Engineering?
-7.  What defines an AI agent?
-8.  What are the three major competitive advantages in AI?
+1.  Why did foundation models change AI development?
+2.  Why does next-token prediction enable complex behaviors?
+3.  When should you use prompting vs RAG vs fine-tuning?
+4.  What tradeoffs come with larger models?
+5.  How does self-supervised learning work?
+6.  How is AI Engineering different from ML Engineering?
+7.  Where will competitive advantage come from?
+8.  When should humans remain in the loop?
+9.  Which metrics matter most in production?
+10. Why should AI systems be designed to evolve?
+
+# Future Reading
+
+-   Transformers
+-   Scaling Laws
+-   Embeddings
+-   Vector Databases
+-   RAG
+-   Fine-Tuning
+-   AI Agents
+-   Prompt Optimization
+-   Model Evaluation
+
+# One-Sentence Takeaway
+
+> **Foundation models transformed AI from building models to building
+> intelligent systems around pre-trained models.**
